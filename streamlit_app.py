@@ -9,7 +9,7 @@ from urllib.error import URLError
 #create the repeatable code block
 def get_fruityvice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
-   return pd.json_normalize(fruityvice_response.json())
+  return pd.json_normalize(fruityvice_response.json())
    
 
 streamlit.title("My Parent's new healthy dinner")
