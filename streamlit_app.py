@@ -6,6 +6,12 @@ import snowflake.connector
 
 from urllib.error import URLError
 
+#create the repeatable code block
+def get_fruityvice_data(this_fruit_choice):
+  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
+   return pd.json_normalize(fruityvice_response.json())
+   
+
 streamlit.title("My Parent's new healthy dinner")
 streamlit.header("Breakfast Menu")
 streamlit.text("😊Ome a three and Blueberry Oatmeal")
@@ -33,9 +39,7 @@ try:
   if not fruit_choice:
     streamlit.error("Please select a fruit to get informtion.")
   else:
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-    streamlit.dataframe(fruityvice_normalized)
+    streamlit.dataframe( get_fruityvice_data(fruit_choice))
 except URLError as e:
     streamlit.error()
 
